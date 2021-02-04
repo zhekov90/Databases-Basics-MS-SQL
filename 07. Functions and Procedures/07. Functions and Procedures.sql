@@ -257,7 +257,3 @@ RETURN SELECT (
 
 SELECT * FROM  dbo.ufn_CashInUsersGames('Love in a mist')
 --should return table "SumCash" with result 8585.00
-
-
-
-
