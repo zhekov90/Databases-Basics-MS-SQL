@@ -120,3 +120,13 @@ JOIN Luggages AS l ON l.Id = t.LuggageId
 JOIN LuggageTypes AS lt ON lt.Id = l.LuggageTypeId
 JOIN Planes AS pl ON pl.Id = f.PlaneId
 ORDER BY [Full Name], [Plane Name], Origin, Destination, [Luggage Type]
+
+
+--10.	PSP
+
+SELECT pl.[Name], pl.Seats, COUNT(p.Id) AS [Passengers Count] FROM Passengers AS p
+RIGHT JOIN Tickets AS t ON t.PassengerId = p.Id
+RIGHT JOIN Flights AS f ON f.Id = t.FlightId
+RIGHT JOIN Planes AS pl ON pl.Id = f.PlaneId
+GROUP BY pl.[Name], pl.Seats
+ORDER BY [Passengers Count] DESC, pl.[Name], pl.Seats
