@@ -68,3 +68,6 @@ WHERE s.Mind > (SELECT AVGMind FROM AVGStats_CTE) AND
 	  s.Luck > (SELECT AVGLuck FROM AVGStats_CTE) AND
 	  s.Speed > ( SELECT AVGSpeed FROM AVGStats_CTE)
 ORDER BY i.[Name]
+
+
+--
