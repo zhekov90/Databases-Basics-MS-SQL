@@ -49,3 +49,10 @@ END
 
 -- 3.	Deposit Money
 
+CREATE PROCEDURE usp_DepositMoney(@accountId INT, @moneyAmount MONEY)
+AS
+	BEGIN TRANSACTION
+		UPDATE Accounts
+		SET Balance += @moneyAmount
+		WHERE Id = @accountId
+	COMMIT
