@@ -52,3 +52,19 @@ GROUP BY u.Username, g.[Name]
 ORDER BY Strength DESC, Defence DESC, Speed DESC, Mind DESC, Luck DESC
 
 
+--Problem 5.	All Items with Greater than Average Statistics
+
+WITH AVGStats_CTE(AVGMind, AVGLuck, AVGSpeed)
+     AS (SELECT AVG(Mind) AS AVGMind, 
+                AVG(Luck) AS AVGLuck, 
+                AVG(Speed) AS AVGSpeed
+         FROM [Statistics]
+		 )
+
+SELECT i.[Name], i.Price, i.MinLevel, s.Strength, s.Defence, s.Speed, s.Luck, s.Mind
+     FROM Items AS i
+JOIN [Statistics] AS s ON s.Id = i.StatisticId
+WHERE s.Mind > (SELECT AVGMind FROM AVGStats_CTE) AND
+	  s.Luck > (SELECT AVGLuck FROM AVGStats_CTE) AND
+	  s.Speed > ( SELECT AVGSpeed FROM AVGStats_CTE)
+ORDER BY i.[Name]
