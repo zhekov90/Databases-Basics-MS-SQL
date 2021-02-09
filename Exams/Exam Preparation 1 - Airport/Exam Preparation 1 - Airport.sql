@@ -172,3 +172,18 @@ GO
 SELECT dbo.udf_CalculateTickets('Kolyshley','Rancabolang', 33)
 -- should return 
 -- Total price 2419.89
+
+
+--12.	Wrong Data
+
+CREATE PROC usp_CancelFlights
+AS
+BEGIN
+	UPDATE Flights
+	SET DepartureTime = NULL, ArrivalTime = NULL
+	WHERE ArrivalTime > DepartureTime
+END
+
+EXEC usp_CancelFlights
+--should return 
+--(49 rows affected)
