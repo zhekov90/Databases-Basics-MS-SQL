@@ -109,3 +109,14 @@ SELECT p.FirstName AS [First Name], p.LastName AS [Last Name], p.Age FROM Passen
 FULL JOIN Tickets AS t ON t.PassengerId = p.Id
 WHERE t.Id IS NULL
 ORDER BY p.Age DESC, [First Name], [Last Name]
+
+
+--9.	Full Info
+
+SELECT p.FirstName + ' ' + p.LastName AS [Full Name], pl.[Name] AS [Plane Name], f.Origin + ' - ' + f.Destination AS Trip, lt.[Type] AS [Luggage Type] FROM Passengers AS p
+JOIN Tickets AS t ON t.PassengerId = p.Id
+JOIN Flights AS f ON f.Id = t.FlightId
+JOIN Luggages AS l ON l.Id = t.LuggageId
+JOIN LuggageTypes AS lt ON lt.Id = l.LuggageTypeId
+JOIN Planes AS pl ON pl.Id = f.PlaneId
+ORDER BY [Full Name], [Plane Name], Origin, Destination, [Luggage Type]
