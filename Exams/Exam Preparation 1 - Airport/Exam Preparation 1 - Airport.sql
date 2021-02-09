@@ -101,3 +101,11 @@ SELECT p.FirstName + ' ' + p.LastName AS [Full Name], f.Origin, f.Destination FR
 JOIN Tickets AS t ON t.PassengerId = p.Id
 JOIN Flights AS f ON f.Id = t.FlightId
 ORDER BY [Full Name], Origin, Destination
+
+
+--8.	Non Adventures People
+
+SELECT p.FirstName AS [First Name], p.LastName AS [Last Name], p.Age FROM Passengers AS p
+FULL JOIN Tickets AS t ON t.PassengerId = p.Id
+WHERE t.Id IS NULL
+ORDER BY p.Age DESC, [First Name], [Last Name]
