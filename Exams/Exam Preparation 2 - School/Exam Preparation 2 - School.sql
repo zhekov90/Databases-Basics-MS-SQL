@@ -151,3 +151,40 @@ JOIN Exams AS e ON e.SubjectId = s.Id
 JOIN StudentsSubjects AS ss ON ss.SubjectId = s.Id
 GROUP BY s.[Name], ss.SubjectId
 ORDER BY ss.SubjectId
+
+
+--11. Exam Grades
+GO
+
+CREATE FUNCTION udf_ExamGradesToUpdate(@studentId INT, @grade DECIMAL(15,2))
+RETURNS NVARCHAR(MAX)
+AS
+BEGIN
+	DECLARE @studentExist INT = (SELECT TOP(1) StudentId FROM StudentsExams WHERE StudentId = @studentId)
+
+	IF @studentExist IS NULL
+	BEGIN
+		RETURN ('The student with provided id does not exist in the school!')
+	END
+
+	IF @grade > 6.00
+	BEGIN
+		RETURN ('Grade cannot be above 6.00!')
+	END
+
+	DECLARE @studentFirstName NVARCHAR(20) = (SELECT TOP(1) FirstName FROM Students WHERE Id = @studentId);
+	DECLARE @biggestGrade DECIMAL(15,2) = @grade + 0.50;
+	DECLARE @count INT = (SELECT Count(Grade) FROM StudentsExams
+		WHERE StudentId = @studentId AND Grade >= @grade AND Grade <= @biggestGrade)
+	RETURN ('You have to update ' + CAST(@count AS nvarchar(10)) + ' grades for the student ' + @studentFirstName)
+END
+
+SELECT dbo.udf_ExamGradesToUpdate(12, 6.20)
+--should return
+--Grade cannot be above 6.00!
+SELECT dbo.udf_ExamGradesToUpdate(12, 5.50)
+--should return
+--You have to update 2 grades for the student Agace
+SELECT dbo.udf_ExamGradesToUpdate(121, 5.50)
+--should return
+--The student with provided id does not exist in the school!
