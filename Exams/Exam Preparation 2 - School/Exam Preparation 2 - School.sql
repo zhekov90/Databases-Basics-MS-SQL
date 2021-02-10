@@ -88,3 +88,8 @@ VALUES
 ('Sports', 9)
 
 
+--3. Update
+
+UPDATE StudentsSubjects
+SET Grade = 6.00
+WHERE (SubjectId = 1 OR SubjectId = 2) AND Grade >= 5.50
