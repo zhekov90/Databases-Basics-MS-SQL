@@ -119,3 +119,10 @@ JOIN Teachers AS t ON t.Id = st.TeacherId
 GROUP BY s.FirstName, s.LastName
 
 
+--7. Students to Go
+
+SELECT s.FirstName + ' ' + s.LastName AS [Full Name] FROM StudentsExams AS se
+RIGHT JOIN Students AS s ON s.Id = se.StudentId
+FULL JOIN Exams AS e ON e.Id = se.ExamId
+WHERE se.ExamId IS NULL AND s.FirstName + ' ' + s.LastName IS NOT NULL
+ORDER BY [Full Name]
