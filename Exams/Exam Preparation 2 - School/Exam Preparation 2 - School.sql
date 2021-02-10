@@ -126,3 +126,11 @@ RIGHT JOIN Students AS s ON s.Id = se.StudentId
 FULL JOIN Exams AS e ON e.Id = se.ExamId
 WHERE se.ExamId IS NULL AND s.FirstName + ' ' + s.LastName IS NOT NULL
 ORDER BY [Full Name]
+
+
+--8. Top Students
+
+SELECT s.FirstName, s.LastName, FORMAT(AVG(se.Grade), 'N2') AS Grade  FROM Students AS s
+JOIN StudentsExams AS se ON se.StudentId = s.Id
+GROUP BY s.FirstName, s.LastName
+ORDER BY Grade DESC, s.FirstName, s.LastName
