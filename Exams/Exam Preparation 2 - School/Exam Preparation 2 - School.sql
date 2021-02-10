@@ -136,4 +136,9 @@ GROUP BY s.FirstName, s.LastName
 ORDER BY Grade DESC, s.FirstName, s.LastName
 
 
---
+--9. Not So In The Studying
+
+SELECT s.FirstName + ISNULL(' ' + s.MiddleName, '') + ' ' + s.LastName AS [Full Name] FROM Students AS s
+FULL JOIN StudentsSubjects AS ss ON ss.StudentId = s.Id
+WHERE ss.SubjectId IS NULL
+ORDER BY [Full Name]
