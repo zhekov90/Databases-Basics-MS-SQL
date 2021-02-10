@@ -188,3 +188,39 @@ SELECT dbo.udf_ExamGradesToUpdate(12, 5.50)
 SELECT dbo.udf_ExamGradesToUpdate(121, 5.50)
 --should return
 --The student with provided id does not exist in the school!
+
+
+--12. Exclude from school
+GO 
+
+CREATE PROC usp_ExcludeFromSchool @StudentId INT
+AS 
+DECLARE @TargetStudentId INT = (SELECT Id FROM Students WHERE Id = @StudentId)
+
+IF (@TargetStudentId IS NULL)
+BEGIN
+	RAISERROR('This school has no student with the provid1ed id!', 16, 1)
+	RETURN
+END
+
+	DELETE FROM StudentsExams
+	WHERE StudentId = @StudentToBeDeleted
+
+	DELETE FROM StudentsSubjects
+	WHERE StudentId = @StudentToBeDeleted
+
+	DELETE FROM StudentsTeachers
+	WHERE StudentId = @StudentToBeDeleted
+
+	DELETE FROM Students
+	WHERE Id = @StudentToBeDeleted
+
+END
+
+EXEC usp_ExcludeFromSchool 1
+SELECT COUNT(*) FROM Students
+--should return 119
+
+EXEC usp_ExcludeFromSchool 301
+--should return
+--This school has no student with the provided id!
