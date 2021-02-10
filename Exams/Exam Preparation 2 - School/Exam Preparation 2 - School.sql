@@ -142,3 +142,12 @@ SELECT s.FirstName + ISNULL(' ' + s.MiddleName, '') + ' ' + s.LastName AS [Full 
 FULL JOIN StudentsSubjects AS ss ON ss.StudentId = s.Id
 WHERE ss.SubjectId IS NULL
 ORDER BY [Full Name]
+
+
+--10. Average Grade per Subject
+
+SELECT s.[Name], AVG(ss.Grade) AS AverageGrade FROM Subjects AS s
+JOIN Exams AS e ON e.SubjectId = s.Id
+JOIN StudentsSubjects AS ss ON ss.SubjectId = s.Id
+GROUP BY s.[Name], ss.SubjectId
+ORDER BY ss.SubjectId
