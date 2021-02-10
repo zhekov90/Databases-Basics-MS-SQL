@@ -104,3 +104,8 @@ DELETE Teachers
 WHERE Phone LIKE '%72%'
 
 
+--5. Teen Students
+
+SELECT FirstName, LastName, Age FROM Students
+WHERE Age >= 12
+ORDER BY FirstName, LastName
