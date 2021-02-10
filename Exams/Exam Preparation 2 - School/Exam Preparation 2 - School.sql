@@ -109,3 +109,13 @@ WHERE Phone LIKE '%72%'
 SELECT FirstName, LastName, Age FROM Students
 WHERE Age >= 12
 ORDER BY FirstName, LastName
+
+
+--6. Students Teachers
+
+SELECT s.FirstName, s.LastName, COUNT(TeacherId) AS TeachersCount FROM StudentsTeachers AS st
+JOIN Students AS s ON s.Id = st.StudentId
+JOIN Teachers AS t ON t.Id = st.TeacherId
+GROUP BY s.FirstName, s.LastName
+
+
