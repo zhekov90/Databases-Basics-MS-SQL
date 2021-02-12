@@ -193,28 +193,21 @@ SELECT dbo.udf_ExamGradesToUpdate(121, 5.50)
 --12. Exclude from school
 GO 
 
-CREATE PROC usp_ExcludeFromSchool @StudentId INT
-AS 
-DECLARE @TargetStudentId INT = (SELECT Id FROM Students WHERE Id = @StudentId)
-
-IF (@TargetStudentId IS NULL)
+CREATE PROC usp_ExcludeFromSchool(@StudentId int)
+AS
 BEGIN
-	RAISERROR('This school has no student with the provid1ed id!', 16, 1)
-	RETURN
-END
-
-	DELETE FROM StudentsExams
-	WHERE StudentId = @StudentToBeDeleted
-
-	DELETE FROM StudentsSubjects
-	WHERE StudentId = @StudentToBeDeleted
-
-	DELETE FROM StudentsTeachers
-	WHERE StudentId = @StudentToBeDeleted
-
-	DELETE FROM Students
-	WHERE Id = @StudentToBeDeleted
-
+    IF (@StudentId NOT IN (SELECT Id FROM Students))
+        BEGIN
+            THROW 50001, 'This school has no student with the provided id!', 1
+        END
+    DELETE StudentsExams
+    WHERE StudentId = @StudentId
+    DELETE StudentsSubjects
+    WHERE StudentId = @StudentId
+    DELETE StudentsTeachers
+    WHERE StudentId = @StudentId
+    DELETE Students
+    WHERE Id = @StudentId
 END
 
 EXEC usp_ExcludeFromSchool 1
