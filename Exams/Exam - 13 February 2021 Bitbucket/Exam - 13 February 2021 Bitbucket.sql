@@ -137,3 +137,21 @@ GROUP BY u.Username
 ORDER BY AVG(f.Size) DESC, u.Username
 
 
+--11.	 All User Commits
+
+GO 
+
+CREATE FUNCTION udf_AllUserCommits(@username VARCHAR(30))
+RETURNS INT
+AS
+BEGIN 
+	RETURN (SELECT COUNT(c.Id) FROM Commits AS c
+JOIN Users AS u ON u.Id = c.ContributorId
+WHERE u.Username = @username)
+END
+
+--SELECT dbo.udf_AllUserCommits('UnderSinduxrein')
+
+--should return 6
+
+
