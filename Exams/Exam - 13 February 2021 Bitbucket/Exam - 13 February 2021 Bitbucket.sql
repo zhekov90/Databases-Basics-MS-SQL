@@ -119,3 +119,12 @@ WHERE f2.ParentId IS NULL
 ORDER BY f1.Id, f1.[Name], f1.Size DESC
 
 
+--9.	Commits in Repositories
+
+SELECT TOP(5) r.Id, r.[Name], COUNT(*) AS Commits FROM Commits AS c
+JOIN Repositories AS r ON r.Id = c.RepositoryId
+JOIN RepositoriesContributors AS rc ON rc.RepositoryId = r.Id
+GROUP BY r.Id, r.[Name]
+ORDER BY COUNT(*) DESC, r.Id, r.[Name]
+
+
