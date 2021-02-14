@@ -155,3 +155,25 @@ END
 --should return 6
 
 
+--12.	 Search for Files
+GO
+
+CREATE PROC usp_SearchForFiles(@fileExtension VARCHAR(20))
+AS
+BEGIN
+	SELECT Id, [Name], CONCAT(Size, 'KB') AS Size FROM Files
+	WHERE [Name] LIKE '%' + @fileExtension
+	ORDER BY Id, [Name], Size DESC
+END
+
+GO
+
+--EXEC usp_SearchForFiles 'txt'
+
+--should return
+--Id	Name		Size
+--28	Jason.txt	10317.54KB
+--31	file.txt	5514.02KB
+--43	init.txt	16089.79KB
+
+
