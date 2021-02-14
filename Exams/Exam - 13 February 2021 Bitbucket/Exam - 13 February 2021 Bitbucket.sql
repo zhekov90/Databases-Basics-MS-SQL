@@ -128,3 +128,12 @@ GROUP BY r.Id, r.[Name]
 ORDER BY COUNT(*) DESC, r.Id, r.[Name]
 
 
+--10.	Average Size
+
+SELECT u.Username, AVG(f.Size) FROM Commits AS c
+JOIN Users AS u ON u.Id = c.ContributorId
+JOIN Files AS f ON f.CommitId = c.Id
+GROUP BY u.Username
+ORDER BY AVG(f.Size) DESC, u.Username
+
+
