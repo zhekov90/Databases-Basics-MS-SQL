@@ -82,3 +82,12 @@ SET IssueStatus = 'closed'
 WHERE AssigneeId = 6
 
 
+--4.	Delete
+
+DELETE FROM RepositoriesContributors
+WHERE RepositoryId = 3
+
+DELETE FROM Issues
+WHERE RepositoryId = 3
+
+
