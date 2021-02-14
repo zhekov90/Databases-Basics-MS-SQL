@@ -75,3 +75,10 @@ VALUES
 ('Unreachable code in Index.cs', 'open', 9, 8)
 
 
+--3.	Update
+
+UPDATE Issues
+SET IssueStatus = 'closed'
+WHERE AssigneeId = 6
+
+
