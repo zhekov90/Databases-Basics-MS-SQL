@@ -111,3 +111,11 @@ JOIN Users AS u ON u.Id = i.AssigneeId
 ORDER BY i.Id DESC, i.AssigneeId
 
 
+--8.	Single Files
+
+SELECT f1.Id, f1.[Name], CONCAT(f1.Size, 'KB') AS Size FROM Files AS f1
+LEFT JOIN Files AS f2 ON f1.Id = f2.ParentId
+WHERE f2.ParentId IS NULL
+ORDER BY f1.Id, f1.[Name], f1.Size DESC
+
+
