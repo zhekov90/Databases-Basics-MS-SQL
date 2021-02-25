@@ -1,5 +1,5 @@
 # MS SQL January 2021
-This repository contains tasks resolved with MS SQL. The C# DB Module (May 2020 - Aug 2020) is part of the Software Engineer program at Software University, Bulgaria.
+This repository contains tasks resolved with MS SQL. The C# DB Module (January 2021 - April 2021) is part of the Software Engineer program at Software University, Bulgaria.
 
 # Topics:
 Database Introduction<br/>
@@ -13,5 +13,5 @@ Triggers and Transactions<br/>
 
 # Summary:<br/>
 <br/>
-Duration of course: 11/01/2021 - 09/04/2021<br/>
+Duration of course: 11/01/2021 - 14/02/2021<br/>
 <br/>
